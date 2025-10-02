@@ -1,0 +1,15 @@
+digraph MealyMachine {
+    S0 [label="S0"];
+    S1 [label="S1"];
+    S2 [label="S2"];
+    S3 [label="S3"];
+
+    S0 -> S2 [label="x1/y1"];
+    S0 -> S3 [label="x2/y1"];
+    S1 -> S2 [label="x1/y2"];
+    S1 -> S3 [label="x2/y2"];
+    S2 -> S1 [label="x1/y2"];
+    S2 -> S3 [label="x2/y1"];
+    S3 -> S2 [label="x1/y3"];
+    S3 -> S3 [label="x2/y2"];
+}

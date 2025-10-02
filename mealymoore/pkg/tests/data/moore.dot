@@ -1,0 +1,24 @@
+digraph MooreMachine {
+    S0_ [label="S0'/λ"];
+    S1y2 [label="S1y2/y2"];
+    S2y1 [label="S2y1/y1"];
+    S2y2 [label="S2y2/y2"];
+    S2y3 [label="S2y3/y3"];
+    S3y1 [label="S3y1/y1"];
+    S3y2 [label="S3y2/y2"];
+
+    S0_ -> S2y1 [label="x1"];
+    S0_ -> S3y1 [label="x2"];
+    S1y2 -> S2y2 [label="x1"];
+    S1y2 -> S3y2 [label="x2"];
+    S2y1 -> S1y2 [label="x1"];
+    S2y1 -> S3y1 [label="x2"];
+    S2y2 -> S1y2 [label="x1"];
+    S2y2 -> S3y1 [label="x2"];
+    S2y3 -> S1y2 [label="x1"];
+    S2y3 -> S3y1 [label="x2"];
+    S3y1 -> S2y3 [label="x1"];
+    S3y1 -> S3y2 [label="x2"];
+    S3y2 -> S2y3 [label="x1"];
+    S3y2 -> S3y2 [label="x2"];
+}
