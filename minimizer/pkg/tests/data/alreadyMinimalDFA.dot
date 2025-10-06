@@ -1,0 +1,13 @@
+digraph FiniteStateMachine {
+	rankdir=LR;
+	node [shape = doublecircle]; S1;
+	node [shape = circle];
+	start [shape=point, style=invis];
+	start -> S0;
+	S0 -> S1 [label = "0"];
+	S0 -> S2 [label = "1"];
+	S1 -> S1 [label = "1"];
+	S1 -> S2 [label = "0"];
+	S2 -> S2 [label = "0"];
+	S2 -> S2 [label = "1"];
+}
