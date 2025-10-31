@@ -1,0 +1,13 @@
+digraph MergePathsNFA {
+  rankdir=LR;
+  start [shape=point];
+  node [shape=doublecircle]; q5;
+  node [shape=circle];
+  start -> q0;
+  q0 -> q1 [label="a"];
+  q1 -> q2 [label="eps"];
+  q1 -> q3 [label="eps"];
+  q2 -> q4 [label="b"];
+  q3 -> q4 [label="c"];
+  q4 -> q5 [label="d"];
+}

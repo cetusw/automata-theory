@@ -1,0 +1,13 @@
+digraph SimpleDFA_Expected {
+	rankdir=LR;
+	node [shape = doublecircle]; q0_q2;
+	node [shape = circle];
+	start [shape=point, style=invis];
+	start -> q0;
+	q0 -> q0_q1 [label = "a"];
+	q0 -> q0 [label = "b"];
+	q0_q1 -> q0_q1 [label = "a"];
+	q0_q1 -> q0_q2 [label = "b"];
+	q0_q2 -> q0_q1 [label = "a"];
+	q0_q2 -> q0 [label = "b"];
+}

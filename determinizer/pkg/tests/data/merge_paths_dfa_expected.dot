@@ -1,0 +1,11 @@
+digraph MergePathsDFA_Expected {
+  rankdir=LR;
+  start [shape=point];
+  node [shape=doublecircle]; q5;
+  node [shape=circle];
+  start -> q0;
+  q0 -> q1_q2_q3 [label="a"];
+  q1_q2_q3 -> q4 [label="b"];
+  q1_q2_q3 -> q4 [label="c"];
+  q4 -> q5 [label="d"];
+}

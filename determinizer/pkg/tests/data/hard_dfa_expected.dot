@@ -1,0 +1,26 @@
+digraph FiniteStateMachine {
+	rankdir=LR;
+	node [shape = doublecircle]; q0_q1_q3_q4_q5_q8_qF q0_q1_q3_q4_q5_q9_qF q0_q1_q3_q4_q5_qF q0_q1_q3_qF;
+	node [shape = circle];
+	start [shape=point, style=invis];
+	start -> q0_q1_q3;
+	q0_q1_q3 -> q2_q4_q6_q9 [label = "a"];
+	q0_q1_q3 -> q1 [label = "b"];
+	q0_q1_q3_q4_q5_q8_qF -> q0_q1_q3_q4_q5_qF [label = "b"];
+	q0_q1_q3_q4_q5_q8_qF -> q2_q4_q6_q9 [label = "a"];
+	q0_q1_q3_q4_q5_q9_qF -> q2_q4_q6_q9 [label = "a"];
+	q0_q1_q3_q4_q5_q9_qF -> q0_q1_q3_q4_q5_q9_qF [label = "b"];
+	q0_q1_q3_q4_q5_qF -> q2_q4_q6_q9 [label = "a"];
+	q0_q1_q3_q4_q5_qF -> q0_q1_q3_q4_q5_qF [label = "b"];
+	q0_q1_q3_qF -> q2_q4_q6_q9 [label = "a"];
+	q0_q1_q3_qF -> q1 [label = "b"];
+	q1 -> q2 [label = "a"];
+	q1 -> q1 [label = "b"];
+	q2 -> q0_q1_q3_qF [label = "b"];
+	q2_q4_q6_q9 -> q4_q7 [label = "a"];
+	q2_q4_q6_q9 -> q0_q1_q3_q4_q5_q9_qF [label = "b"];
+	q4 -> q4 [label = "a"];
+	q4 -> q0_q1_q3_q4_q5_qF [label = "b"];
+	q4_q7 -> q4 [label = "a"];
+	q4_q7 -> q0_q1_q3_q4_q5_q8_qF [label = "b"];
+}
