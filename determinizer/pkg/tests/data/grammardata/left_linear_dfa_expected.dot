@@ -1,0 +1,10 @@
+digraph LeftLinear_Expected {
+  rankdir=LR;
+  start [shape=point];
+  node [shape=doublecircle]; S;
+  node [shape=circle];
+  start -> F;
+  F -> S [label="b"];
+  S -> A [label="b"];
+  A -> S [label="a"];
+}

@@ -1,0 +1,9 @@
+digraph Epsilon_Expected {
+  rankdir=LR;
+  start [shape=point];
+  node [shape=doublecircle]; S;
+  node [shape=circle];
+  start -> S;
+  S -> A [label="a"];
+  A -> S [label="b"];
+}

@@ -1,0 +1,11 @@
+digraph RightLinear_Expected {
+  rankdir=LR;
+  start [shape=point];
+  node [shape=doublecircle]; H;
+  node [shape=circle];
+  start -> S;
+  S -> A [label="a"];
+  S -> S [label="b"];
+  A -> B [label="b"];
+  B -> H [label="a"];
+}

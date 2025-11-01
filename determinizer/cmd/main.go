@@ -1,59 +1,87 @@
 package main
 
 import (
+	"flag"
+	"fmt"
+	"os"
+
 	"determinizer/pkg/determinizer"
 	"determinizer/pkg/model"
 	"determinizer/pkg/parser"
 	"determinizer/pkg/writer"
-	"flag"
-	"fmt"
-	"os"
 )
 
-func main() {
-	inputFile, outputFile := parseInput()
-	assertInput(inputFile, outputFile)
+const (
+	nfaType     = "nfa"
+	grammarType = "grammar"
+)
 
-	originalNFA, err := parseNFAFromFile(*inputFile)
+type config struct {
+	input  *string
+	output *string
+	t      *string
+}
+
+func main() {
+	c := parseCliFlags()
+	assertInput(c.input, c.output)
+
+	var originalNFA *model.NFA
+	var err error
+
+	data, err := os.ReadFile(*c.input)
 	if err != nil {
-		fmt.Printf("Error parsing input file: %v\n", err)
+		fmt.Printf("Ошибка чтения входного файла: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Printf("Successfully parsed original NFA with %d states.\n", len(originalNFA.States))
+	inputString := string(data)
 
-	m := determinizer.NewDeterminizer(originalNFA)
-	newDFA := m.Run()
+	switch *c.t {
+	case nfaType:
+		originalNFA, err = parser.ParseNFA(inputString)
+		fmt.Println("Парсинг входного файла как NFA (.dot)...")
+	case grammarType:
+		originalNFA, err = parser.ParseGrammarToNFA(inputString)
+		fmt.Println("Парсинг входного файла как грамматики...")
+	default:
+		fmt.Printf("Неизвестный тип входных данных: %s. Используйте 'nfa' или 'grammar'.\n", *c.t)
+		os.Exit(1)
+	}
+
+	if err != nil {
+		fmt.Printf("Ошибка парсинга входного файла: %v\n", err)
+		os.Exit(1)
+	}
+	fmt.Printf("Успешно построен НКА с %d состояниями.\n", len(originalNFA.States))
+
+	d := determinizer.NewDeterminizer(originalNFA)
+	newDFA := d.Run()
 
 	w := writer.NewWriter()
-	err = w.WriteToFile(newDFA, *outputFile)
+	err = w.WriteToFile(newDFA, *c.output)
 	if err != nil {
-		fmt.Printf("Error writing output file: %v\n", err)
+		fmt.Printf("Ошибка записи выходного файла: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Printf("Successfully wrote minimized DFA to %s\n", *outputFile)
+	fmt.Printf("Успешно записан ДКА в %s\n", *c.output)
 }
 
 func assertInput(inputFile *string, outputFile *string) {
 	if *inputFile == "" || *outputFile == "" {
-		fmt.Println("Usage: go run . -in <input.dot> -out <output.dot>")
+		fmt.Println("Использование: go run . -in <input_file> -out <output_file> [-type <nfa|grammar>]")
 		os.Exit(1)
 	}
 }
 
-func parseNFAFromFile(filePath string) (*model.NFA, error) {
-	data, err := os.ReadFile(filePath)
-	if err != nil {
-		fmt.Printf("Error parsing input file: %v\n", err)
-		os.Exit(1)
-	}
-	p := parser.NewParser(string(data))
-	return p.Parse()
-}
-
-func parseInput() (*string, *string) {
-	inputFile := flag.String("in", "", "Input file in .dot format")
-	outputFile := flag.String("out", "", "Output file for the minimized DFA")
+func parseCliFlags() *config {
+	inputFile := flag.String("in", "", "Входной файл")
+	outputFile := flag.String("out", "", "Выходной файл")
+	inputType := flag.String("type", "nfa", "Тип входных данных: 'nfa' (файл .dot) или 'grammar' (файл с грамматикой)")
 	flag.Parse()
 
-	return inputFile, outputFile
+	return &config{
+		input:  inputFile,
+		output: outputFile,
+		t:      inputType,
+	}
 }
