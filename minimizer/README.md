@@ -20,4 +20,4 @@ go run ./cmd/main.go -in <input.dot> -out <output.dot>
 go test ./pkg/tests/
 ```
 Эта команда выполнит все тесты в файле `minimizer_test.go` и выведет отчет.
-Представление тестовых автоматов можно посмотреть в /pkg/tests/data.
+Представление тестовых автоматов можно посмотреть в /pkg/tests/data. 
