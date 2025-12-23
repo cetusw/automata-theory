@@ -1,0 +1,9 @@
+<rule1> -> <rule1> ау <rule2> | <rule2>
+<rule2> -> <rule2> ку <rule3> | <rule3>
+<rule3> -> ух-ты | хо <rule3> | ну <rule1> и_ну
+
+R1 -> R2 R1'
+R1' -> ау R2 R1' | epsilon (пусто)
+R2 -> R3 R2'
+R2' -> ку R3 R2' | epsilon
+R3 -> ух-ты | хо R3 | ну R1 и_ну
