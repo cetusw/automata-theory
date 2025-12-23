@@ -1,18 +1,46 @@
+#include <fstream>
 #include <iostream>
+#include "FirstPopulationParser.h"
+#include "SecondPopulationParser.h"
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-int main()
+int main(const int argc, char *argv[])
 {
-    // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the <b>lang</b> variable name to see how CLion can help you rename it.
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
-
-    for (int i = 1; i <= 5; i++)
+    if (argc < 2)
     {
-        // TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        std::cout << "i = " << i << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::ifstream file(argv[1]);
+    if (!file.is_open())
+    {
+        std::cerr << "Could not open file" << std::endl;
+        return 1;
+    }
+
+
+    Lexer lexer1(file);
+    FirstPopulationParser p1(lexer1);
+    Lexer lexer2(file);
+    SecondPopulationParser p2;
+
+
+    bool isPop1 = p1.Parse();
+    bool isPop2 = p2.Parse(lexer2);
+
+
+    std::cout << "Результат анализа:\n";
+
+    if (isPop1)
+    {
+        std::cout << ">> Это ПЕРВАЯ популяция!\n";
+    } else if (isPop2)
+    {
+        std::cout << ">> Это ВТОРАЯ популяция!\n";
+    } else
+    {
+        std::cout << ">> Неизвестный вид (не подходит ни под одну грамматику).\n";
     }
 
     return 0;
-    // TIP See CLion help at <a href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>. Also, you can try interactive lessons for CLion by selecting 'Help | Learn IDE Features' from the main menu.
 }

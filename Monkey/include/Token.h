@@ -12,6 +12,7 @@ enum class TokenType
     T_I_NU,
     T_OI,
     T_AI,
+    T_EOF,
 };
 
 struct Token

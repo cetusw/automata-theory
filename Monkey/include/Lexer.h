@@ -54,16 +54,7 @@ private:
 			return { TokenType::T_EOF, "" };
 		}
 
-		if (isalpha(ch))
-		{
-			return ReadIdentifier(ch);
-		}
-		if (isdigit(ch))
-		{
-			return ReadNumber(ch);
-		}
-
-		return ReadSymbol(ch);
+		return ReadIdentifier(ch);
 	}
 
 	[[nodiscard]] Token ReadIdentifier(const char firstChar) const
@@ -80,88 +71,43 @@ private:
 
 	[[nodiscard]] static TokenType GetKeywordType(const std::string& s)
 	{
-		if (s == "main")
+		if (s == "ну")
 		{
-			return TokenType::T_MAIN;
+			std::cout << "ну" << std::endl;
 		}
-		if (s == "end")
+		if (s == "ау")
 		{
-			return TokenType::T_END;
+			return TokenType::T_AU;
 		}
-		if (s == "begin")
+		if (s == "ку")
 		{
-			return TokenType::T_BEGIN;
+			return TokenType::T_KU;
 		}
-		if (s == "var")
+		if (s == "ух-ты")
 		{
-			return TokenType::T_VAR;
+			return TokenType::T_UH_TI;
 		}
-		if (s == "int")
+		if (s == "хо")
 		{
-			return TokenType::T_INT;
+			return TokenType::T_HO;
 		}
-		if (s == "float")
+		if (s == "ну")
 		{
-			return TokenType::T_FLOAT;
+			return TokenType::T_NU;
 		}
-		if (s == "const")
+		if (s == "и_ну")
 		{
-			return TokenType::T_CONST;
+			return TokenType::T_I_NU;
 		}
-		return TokenType::T_ID;
-	}
-
-	[[nodiscard]] Token ReadNumber(const char firstChar) const
-	{
-		std::string s(1, firstChar);
-		char ch;
-		while (m_input.get(ch) && (isdigit(ch) || ch == '.'))
+		if (s == "ой")
 		{
-			s += ch;
+			return TokenType::T_OI;
 		}
-		m_input.putback(ch);
-		return { TokenType::T_NUMBER, s };
-	}
-
-	[[nodiscard]] Token ReadSymbol(const char ch) const
-	{
-		if (ch == ':')
-			return ReadColon();
-
-		switch (ch)
+		if (s == "ай")
 		{
-		case ';':
-			return { TokenType::T_SEMICOLON, ";" };
-		case ',':
-			return { TokenType::T_COMMA, "," };
-		case '.':
-			return { TokenType::T_DOT, "." };
-		case '=':
-			return { TokenType::T_EQUALS, "=" };
-		case '+':
-			return { TokenType::T_PLUS, "+" };
-		case '*':
-			return { TokenType::T_MULTIPLICATION, "*" };
-		case '-':
-			return { TokenType::T_MINUS, "-" };
-		case '(':
-			return { TokenType::T_LEFT_PARENTHESIS, "(" };
-		case ')':
-			return { TokenType::T_RIGHT_PARENTHESIS, ")" };
-		default:
-			return { TokenType::T_ERROR, std::string(1, ch) };
+			return TokenType::T_AI;
 		}
-	}
-
-	[[nodiscard]] Token ReadColon() const
-	{
-		char ch;
-		if (m_input.get(ch) && ch == '=')
-		{
-			return { TokenType::T_ASSIGN, ":=" };
-		}
-		m_input.putback(ch);
-		return { TokenType::T_COLON, ":" };
+		return TokenType::T_EOF;
 	}
 };
 
