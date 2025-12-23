@@ -1,0 +1,25 @@
+main
+    var x,y, z1 :int;
+    var bigFloat:float;
+
+    const          PI=      3.14159;
+    const G=9.8;
+
+    var grammarCheck: int;
+    begin
+        x:=10;
+        y:=x+20*3;
+
+        z1:=( x + y );
+
+        bigFloat:=100.;
+        bigFloat:=0.005   ;
+
+        x :=  -   1;
+
+        y:=x   *((2   +3)+(4   *5));
+
+        grammarCheck:=x;
+        x:=grammarCheck;
+    end
+end.
