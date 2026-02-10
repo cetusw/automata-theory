@@ -61,20 +61,24 @@ private:
 	{
 		std::string s(1, firstChar);
 		char ch;
-		while (m_input.get(ch) && isalnum(ch))
+		while (m_input.get(ch))
 		{
-			s += ch;
+			if (isalnum(static_cast<unsigned char>(ch)) || ch == '-' || ch == '_')
+			{
+				s += ch;
+			}
+			else
+			{
+				// Если встретили разделитель (пробел, перевод строки и т.д.), возвращаем его в поток
+				m_input.putback(ch);
+				break;
+			}
 		}
-		m_input.putback(ch);
 		return { GetKeywordType(s), s };
 	}
 
 	[[nodiscard]] static TokenType GetKeywordType(const std::string& s)
 	{
-		if (s == "ну")
-		{
-			std::cout << "ну" << std::endl;
-		}
 		if (s == "ау")
 		{
 			return TokenType::T_AU;

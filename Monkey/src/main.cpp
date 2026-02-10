@@ -21,12 +21,14 @@ int main(const int argc, char *argv[])
 
     Lexer lexer1(file);
     FirstPopulationParser p1(lexer1);
+	bool isPop1 = p1.Parse();
+
+	file.clear();
+	file.seekg(0);
+
     Lexer lexer2(file);
     SecondPopulationParser p2;
-
-
-    bool isPop1 = p1.Parse();
-    bool isPop2 = p2.Parse(lexer2);
+	bool isPop2 = p2.Parse(lexer2);
 
 
     std::cout << "Результат анализа:\n";

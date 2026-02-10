@@ -171,7 +171,8 @@ private:
 		Expression();
 	}
 
-	void Statements()
+	void
+	Statements()
 	{
 		Statement();
 		while (m_currentToken.m_type == TokenType::T_SEMICOLON)
